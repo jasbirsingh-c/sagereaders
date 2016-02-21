@@ -31,10 +31,12 @@ class activello_recent_posts extends WP_Widget
           <div class="recent-posts-wrapper">
 
                 <?php
-
+                $ids = get_users(array('role' => 'contributor' ,'fields' => 'ID'));
+                
                   $featured_args = array(
                       'posts_per_page' => $limit + 1 ,
-                      'ignore_sticky_posts' => 1
+                      'ignore_sticky_posts' => 1,
+                  		'author__in' => $ids
                     );
 
                   $featured_query = new WP_Query($featured_args);
