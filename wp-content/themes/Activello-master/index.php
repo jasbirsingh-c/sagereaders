@@ -17,7 +17,6 @@ get_header(); ?>
                 <?php $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; ?>
 
 		<main id="main" class="site-main <?php echo "page-".$paged;?> role="main">
-		<?php query_posts('author=1'); ?>
 		<?php if ( have_posts() ) : ?>
 
 			<div class="article-container">
@@ -28,6 +27,17 @@ get_header(); ?>
 				<?php get_template_part( 'content', '' ); ?>
 
 			<?php endwhile; ?>
+			
+			<?php
+			//authors post
+				$author_ids = get_users( array('role' => 'author' ,'fields' => 'ID') );
+				$query = new WP_Query( array( 'author' => implode(",", $author_ids), 'posts_per_page' => 1) ); 
+			?>			
+			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+
+				<?php get_template_part( 'content', '' ); ?>
+
+			<?php endwhile; ?>			
 			
 			</div>
 			

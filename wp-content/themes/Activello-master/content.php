@@ -4,10 +4,6 @@
  */
 ?>
 
-<?php
-$user_info = get_userdata($post->post_author);
-if(in_array('author', $user_info->roles)  || in_array('administrator', $user_info->roles)) {
-?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="blog-item-wrap">
 		<div class="post-inner-content">
@@ -82,6 +78,3 @@ if(in_array('author', $user_info->roles)  || in_array('administrator', $user_inf
 		</div>
 	</div>
 </article><!-- #post-## -->
-<?php
-}
-?>

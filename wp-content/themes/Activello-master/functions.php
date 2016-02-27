@@ -284,10 +284,11 @@ function activello_woo_setup() {
 endif; // activello_woo_setup
 add_action( 'after_setup_theme', 'activello_woo_setup' );
 
-/* function limit_posts_on_homepage( $query ) {
+function limit_posts_on_homepage( $query ) {
 	if ( $query->is_home() && $query->is_main_query() ) {
 		$query->set( 'posts_per_page', 1 );
-		$query->set( 'author', 1 );
+		$admin_ids = get_users( array('role' => 'administrator' ,'fields' => 'ID') );
+		$query->set( 'author', implode(",", $admin_ids) );
 	}
 }
-add_action( 'pre_get_posts', 'limit_posts_on_homepage' ); */
+add_action( 'pre_get_posts', 'limit_posts_on_homepage' );
