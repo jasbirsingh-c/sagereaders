@@ -8,6 +8,7 @@
  */
 ?>
 				</div><!-- close .*-inner (main-content or sidebar, depending if sidebar is used) -->
+				<?php if( function_exists('the_ad') ) the_ad_group(4); ?>
 			</div><!-- close .row -->
 		</div><!-- close .container -->
 	</div><!-- close .site-content -->

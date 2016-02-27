@@ -16,7 +16,6 @@ class activello_recent_posts extends WP_Widget
         $title = isset($instance['title']) ? $instance['title'] : esc_html__('recent Posts', 'activello');
         $limit = isset($instance['limit']) ? $instance['limit'] : 5;
 
-        $this->displayAdd();
       echo $before_widget;
       echo $before_title;
       echo $title;
@@ -114,12 +113,5 @@ class activello_recent_posts extends WP_Widget
     	<?php
     }
     
-    function displayAdd()
-    { ?>
-    	<div id="add_above_recent">
-    		<img alt="" src="<?php echo get_template_directory_uri().'/inc/images/ad_336x280.png'; ?>">
-    	</div>
-    	<?php 
-    }
 }
 ?>

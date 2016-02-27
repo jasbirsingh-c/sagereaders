@@ -49,11 +49,7 @@ get_header(); ?>
 
 		<?php endif; ?>
 
-		<?php get_template_part( 'page_3', '' ); ?>
-		
-		<div id="add_above_footer">
-			<img alt="" src="<?php echo get_template_directory_uri().'/inc/images/ad_728x90.png'; ?>">
-		</div>
+		<?php get_template_part( 'page_3', '' ); ?>					
 		
 		</main><!-- #main -->
 	</div><!-- #primary -->
