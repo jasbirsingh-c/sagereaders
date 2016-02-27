@@ -1737,3 +1737,12 @@ table#wp-calendar {
 .full-width {
   width: 100%;
 }
+
+.page-3-desc {
+	width: 50%;
+    display: inline-block;
+    float: left;	
+}
+
+.page-3-title {font-weight:bold;}
+#add_above_recent {padding-bottom:10px;}

@@ -292,3 +292,9 @@ function limit_posts_on_homepage( $query ) {
 	}
 }
 add_action( 'pre_get_posts', 'limit_posts_on_homepage' );
+
+function my_enqueue($hook) {
+	wp_enqueue_script('admin-js', get_template_directory_uri().'/inc/js/admin.js', array('jquery'), false, true  );
+	wp_enqueue_style( 'admin-css', get_template_directory_uri().'/inc/css/admin.css' );
+}
+add_action( 'admin_enqueue_scripts', 'my_enqueue' );

@@ -116,8 +116,8 @@ class activello_recent_posts extends WP_Widget
     
     function displayAdd()
     { ?>
-    	<div>
-    		Add Comes here<br><br><br><br><br><br>
+    	<div id="add_above_recent">
+    		<img alt="" src="<?php echo get_template_directory_uri().'/inc/images/ad_336x280.png'; ?>">
     	</div>
     	<?php 
     }
