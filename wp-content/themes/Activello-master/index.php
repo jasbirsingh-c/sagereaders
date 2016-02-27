@@ -17,7 +17,7 @@ get_header(); ?>
                 <?php $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; ?>
 
 		<main id="main" class="site-main <?php echo "page-".$paged;?> role="main">
-
+		<?php query_posts('author=1'); ?>
 		<?php if ( have_posts() ) : ?>
 
 			<div class="article-container">
@@ -31,7 +31,7 @@ get_header(); ?>
 			
 			</div>
 			
-			<?php activello_paging_nav(); ?>
+			<?php //activello_paging_nav(); ?>
 
 		<?php else : ?>
 
