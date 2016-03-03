@@ -298,3 +298,13 @@ function my_enqueue($hook) {
 	wp_enqueue_style( 'admin-css', get_template_directory_uri().'/inc/css/admin.css' );
 }
 add_action( 'admin_enqueue_scripts', 'my_enqueue' );
+
+add_action('pending_post', 'send_admin_email');
+add_action('publish_post', 'send_admin_email');
+
+function send_admin_email($post_id){
+	$to = get_option( 'admin_email', 'braincandy54@gmail.com' );
+	$subject = 'A new article is published/pending in sagereaders';
+	$message = "Post address: ".get_permalink($post_id);
+	wp_mail($to, $subject, $message );
+}
