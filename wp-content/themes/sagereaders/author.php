@@ -1,89 +1,119 @@
 <?php
 /**
- * The template for displaying Author Archive pages.
+ * The template for displaying Archive pages.
  *
- * @package WordPress
- * @subpackage Twenty_Eleven
- * @since Twenty Eleven 1.0
+ * Learn more: http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package activello
  */
 
 get_header(); ?>
 
-		<section id="primary">
-			<div id="content" role="main">
+	<section id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
 
 			<?php if ( have_posts() ) : ?>
-
-				<?php
-					/* Queue the first post, that way we know
-					 * what author we're dealing with (if that is the case).
-					 *
-					 * We reset this later so we can run the loop
-					 * properly with a call to rewind_posts().
-					 */
-					the_post();
-				?>
-
-				<header class="page-header">
-					<h1 class="page-title author"><?php printf( __( 'Author : %s', 'twentyeleven' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' ); ?></h1>
-				</header>
-
-				<?php
-					/* Since we called the_post() above, we need to
-					 * rewind the loop back to the beginning that way
-					 * we can run the loop properly, in full.
-					 */
-					rewind_posts();
-				?>
-
-				<?php //twentyeleven_content_nav( 'nav-above' ); ?>
-
-				<?php
-				// If a user has filled out their description, show a bio on their entries.
-				if ( get_the_author_meta( 'description' ) ) : ?>
-				<div id="author-info">
-					<div id="author-avatar">
-						<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'twentyeleven_author_bio_avatar_size', 60 ) ); ?>
-					</div><!-- #author-avatar -->
-					<div id="author-description">
-						<h2><?php printf( __( 'About %s', 'twentyeleven' ), get_the_author() ); ?></h2>
-						<?php the_author_meta( 'description' ); ?>
-					</div><!-- #author-description	-->
-				</div><!-- #author-info -->
-				<?php endif; ?>
-
-				<?php /* Start the Loop */ ?>
-				<?php while ( have_posts() ) : the_post(); ?>
-
+			<header class="page-header">
+				<h1 class="page-title">
 					<?php
-						/* Include the Post-Format-specific template for the content.
-						 * If you want to overload this in a child theme then include a file
-						 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-						 */
-						get_template_part( 'content', get_post_format() );
+						if ( is_category() ) :
+							single_cat_title();
+
+						elseif ( is_tag() ) :
+							single_tag_title();
+
+						elseif ( is_author() ) :
+							printf( esc_html__( 'Author: %s', 'activello' ), '<span class="vcard">' . get_the_author() . '</span>' );
+						?>
+						<?php
+						// If a user has filled out their description, show a bio on their entries.
+						if ( get_the_author_meta( 'description' ) ) : ?>
+						<div id="author-info">
+							<div id="author-avatar">
+								<?php echo get_avatar( get_the_author_meta( 'user_email' ), 150 ); ?>
+							</div><!-- #author-avatar -->
+							<div id="author-description">
+								<h2><?php printf( __( 'About %s', 'activello' ), get_the_author() ); ?></h2>
+								<?php the_author_meta( 'description' ); ?>
+							</div><!-- #author-description	-->
+						</div><!-- #author-info -->
+						<?php endif; ?>						
+						<?php 
+
+						elseif ( is_day() ) :
+							printf( esc_html__( 'Day: %s', 'activello' ), '<span>' . get_the_date() . '</span>' );
+
+						elseif ( is_month() ) :
+							printf( esc_html__( 'Month: %s', 'activello' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'activello' ) ) . '</span>' );
+
+						elseif ( is_year() ) :
+							printf( esc_html__( 'Year: %s', 'activello' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'activello' ) ) . '</span>' );
+
+						elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
+							esc_html_e( 'Asides', 'activello' );
+
+						elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) :
+							esc_html_e( 'Galleries', 'activello');
+
+						elseif ( is_tax( 'post_format', 'post-format-image' ) ) :
+							esc_html_e( 'Images', 'activello');
+
+						elseif ( is_tax( 'post_format', 'post-format-video' ) ) :
+							esc_html_e( 'Videos', 'activello' );
+
+						elseif ( is_tax( 'post_format', 'post-format-quote' ) ) :
+							esc_html_e( 'Quotes', 'activello' );
+
+						elseif ( is_tax( 'post_format', 'post-format-link' ) ) :
+							esc_html_e( 'Links', 'activello' );
+
+						elseif ( is_tax( 'post_format', 'post-format-status' ) ) :
+							esc_html_e( 'Statuses', 'activello' );
+
+						elseif ( is_tax( 'post_format', 'post-format-audio' ) ) :
+							esc_html_e( 'Audios', 'activello' );
+
+						elseif ( is_tax( 'post_format', 'post-format-chat' ) ) :
+							esc_html_e( 'Chats', 'activello' );
+
+						else :
+							esc_html_e( 'Archives', 'activello' );
+
+						endif;
 					?>
+				</h1>
+				<?php
+					// Show an optional term description.
+					$term_description = term_description();
+					if ( ! empty( $term_description ) ) :
+						printf( '<div class="taxonomy-description">%s</div>', $term_description );
+					endif;
+				?>
+			</header><!-- .page-header -->
 
-				<?php endwhile; ?>
+			<?php /* Start the Loop */ ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php //twentyeleven_content_nav( 'nav-below' ); ?>
+				<?php
+					/* Include the Post-Format-specific template for the content.
+					 * If you want to override this in a child theme, then include a file
+					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+					 */
+					get_template_part( 'content', get_post_format() );
+				?>
 
-			<?php else : ?>
+			<?php endwhile; ?>
 
-				<article id="post-0" class="post no-results not-found">
-					<header class="entry-header">
-						<h1 class="entry-title"><?php _e( 'Nothing Found', 'twentyeleven' ); ?></h1>
-					</header><!-- .entry-header -->
+			<?php activello_paging_nav(); ?>
 
-					<div class="entry-content">
-						<p><?php _e( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'twentyeleven' ); ?></p>
-						<?php get_search_form(); ?>
-					</div><!-- .entry-content -->
-				</article><!-- #post-0 -->
+		<?php else : ?>
 
-			<?php endif; ?>
+			<?php get_template_part( 'content', 'none' ); ?>
 
-			</div><!-- #content -->
-		</section><!-- #primary -->
+		<?php endif; ?>
+
+		</main><!-- #main -->
+	</section><!-- #primary -->
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
