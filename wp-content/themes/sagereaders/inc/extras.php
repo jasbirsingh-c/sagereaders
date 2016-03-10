@@ -156,7 +156,7 @@ function activello_featured_slider() {
             	if($link == '')
               		echo get_the_post_thumbnail( get_the_ID(), 'activello-slider' );
             	else
-            		echo '<a href="'.$link.'">'.get_the_post_thumbnail( get_the_ID(), 'activello-slider' ).'</a>';
+            		echo '<a target="_blank" href="'.$link.'">'.get_the_post_thumbnail( get_the_ID(), 'activello-slider' ).'</a>';
             endif;
 
               /* echo '<div class="flex-caption">';
