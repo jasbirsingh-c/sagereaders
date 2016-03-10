@@ -159,11 +159,11 @@ function activello_featured_slider() {
             		echo '<a href="'.$link.'">'.get_the_post_thumbnail( get_the_ID(), 'activello-slider' ).'</a>';
             endif;
 
-              echo '<div class="flex-caption">';
+              /* echo '<div class="flex-caption">';
 									echo get_the_category_list();
                   if ( get_the_title() != '' ) echo '<a href="' . get_permalink() . '"><h2 class="entry-title">'. get_the_title().'</h2></a>';
                   echo '<div class="read-more"><a href="' . get_permalink() . '">' . __( 'Read More', 'activello' ) .'</a></div>';
-              echo '</div>';
+              echo '</div>'; */
 
               endwhile; wp_reset_query();
             endif;
