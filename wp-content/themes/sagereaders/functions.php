@@ -308,3 +308,25 @@ function send_admin_email($post_id){
 	$message = "Post address: ".get_permalink($post_id);
 	wp_mail($to, $subject, $message );
 }
+
+function my_login_logo() { ?>
+    <style type="text/css">
+        .login h1 a {
+            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/inc/images/sagereaders-logo.png);
+		    width: 318px;
+		    height: 100px;
+		    background-size: 318px 100px;            
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );
+
+function my_login_logo_url() {
+	return home_url();
+}
+add_filter( 'login_headerurl', 'my_login_logo_url' );
+
+function my_login_logo_url_title() {
+	return 'Sagereaders';
+}
+add_filter( 'login_headertitle', 'my_login_logo_url_title' );
