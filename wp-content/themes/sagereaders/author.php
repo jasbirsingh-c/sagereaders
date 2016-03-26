@@ -7,11 +7,22 @@
  * @package activello
  */
 
-get_header(); ?>
+get_header();
+
+
+$curauth = (isset($_GET['author_name'])) ?
+get_user_by('slug', $author_name) :
+get_userdata(intval($author));
+
+?>
 
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
+		<?php
+			if(!in_array("photographer", $curauth->roles))
+			{
+		?>
 			<?php if ( have_posts() ) : ?>
 			<header class="page-header">
 				<h1 class="page-title">
@@ -111,6 +122,51 @@ get_header(); ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 
 		<?php endif; ?>
+		
+		<?php
+			}
+			else
+			{ ?>
+				<header class="page-header">
+					<h1 class="page-title">		
+					<?php 
+						printf( esc_html__( 'Author: %s', 'activello' ), '<span class="vcard">' . $author_name . '</span>' );
+					?>
+					<div id="author-info">
+						<div id="author-avatar">
+							<?php echo get_avatar( $curauth->ID, 150 ); ?>
+						</div><!-- #author-avatar -->
+						<div id="author-description">
+							<h2><?php printf( __( 'About %s', 'activello' ), $author_name ); ?></h2>
+							<?php echo $curauth->description; ?>
+						</div><!-- #author-description	-->
+					</div><!-- #author-info -->					
+			<?php
+			
+				$args = array(
+						'author' => $curauth->ID,
+						'post_type' => 'snap'
+				);
+				
+				$author_posts = new WP_Query( $args );
+				if( $author_posts->have_posts() ) { ?>
+					<h2>His snaps</h2>
+				<?php 
+					while( $author_posts->have_posts()) {
+						$author_posts->the_post();
+						// title, content, etc
+						?>
+						<img width="100" height="100" src="<?php echo get_post_meta(get_the_id(), 'snap', true )['guid']; ?>">
+						<?php 
+						
+						// you should have access to any of the tags you normally
+						// can use in The Loop
+					}
+					wp_reset_postdata();					
+					
+				}
+			}
+		?>
 
 		</main><!-- #main -->
 	</section><!-- #primary -->
