@@ -157,7 +157,7 @@ function activello_scripts() {
   wp_enqueue_style( 'activello-fonts', '//fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic|Montserrat:400,700|Maven+Pro:400,700');
 
   // Add slider CSS only if is front page ans slider is enabled
-  if( ( is_home() || is_front_page() ) && get_theme_mod('activello_featured_hide') == 1 ) {
+  if( ( is_home() || is_front_page() || is_author() ) && get_theme_mod('activello_featured_hide') == 1 ) {
     wp_enqueue_style( 'flexslider-css', get_template_directory_uri().'/inc/css/flexslider.css' );
   }
 
@@ -171,9 +171,12 @@ function activello_scripts() {
   wp_enqueue_script('activello-bootstrapjs', get_template_directory_uri().'/inc/js/bootstrap.min.js', array('jquery') );
 
   // Add slider JS only if is front page ans slider is enabled
-  if( ( is_home() || is_front_page() ) && get_theme_mod('activello_featured_hide') == 1 ) {
+  if( ( is_home() || is_front_page() || is_author() ) && get_theme_mod('activello_featured_hide') == 1 ) {
     wp_register_script( 'flexslider-js', get_template_directory_uri() . '/inc/js/flexslider.min.js', array('jquery'), '20140222', true );
   }
+  
+  if(is_author())
+  	wp_enqueue_script( 'flexslider-js' );
   
   // Main theme related functions
   wp_enqueue_script( 'activello-functions', get_template_directory_uri() . '/inc/js/functions.min.js', array('jquery') );

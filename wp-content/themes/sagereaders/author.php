@@ -151,17 +151,32 @@ get_userdata(intval($author));
 				$author_posts = new WP_Query( $args );
 				if( $author_posts->have_posts() ) { ?>
 					<h2>His snaps</h2>
+						<div class="snaps-flexslider">
+  							<ul class="slides">					
 				<?php 
 					while( $author_posts->have_posts()) {
 						$author_posts->the_post();
 						// title, content, etc
 						?>
-						<img width="100" height="100" src="<?php echo get_post_meta(get_the_id(), 'snap', true )['guid']; ?>">
+							<li>
+								<img src="<?php echo get_post_meta(get_the_id(), 'snap', true )['guid']; ?>">
+    						</li>						
 						<?php 
 						
 						// you should have access to any of the tags you normally
 						// can use in The Loop
 					}
+					?>
+					</ul>
+					</div>
+					<script type="text/javascript">
+						jQuery(window).load(function() {
+							  jQuery('.snaps-flexslider').flexslider({
+							    animation: "slide"
+							  });
+							});					
+					</script>
+					<?php 
 					wp_reset_postdata();					
 					
 				}
