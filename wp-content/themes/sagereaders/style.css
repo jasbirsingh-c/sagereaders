@@ -1733,3 +1733,9 @@ table#wp-calendar {
 
 .page-3-title {font-weight:bold;}
 #add_above_recent {padding-bottom:10px;}
+#author-description {font-size:14px;}
+#author-description h2 {font-size:18px;}
+.author-box .photo {
+    border-radius: 50%;
+}
+.author-box {margin-bottom: 15px;}

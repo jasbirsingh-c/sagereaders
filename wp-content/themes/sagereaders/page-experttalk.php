@@ -18,21 +18,42 @@ get_header(); ?>
 				<?php //get_template_part( 'content', 'page' ); ?>
 
 				<?php
+				$authors_info = get_users( array('role' => 'administrator') );
+				//echo '<pre>';print_r($authors_info);die;
+				foreach ($authors_info as $author_info)
+				{
+					?>
+					<div class="author-box col-md-12 col-sm-12">
+						<div class="col-md-3 col-sm-3">
+							<a href="<?php echo get_author_posts_url( $author_info->ID); ?>"><?php echo get_avatar( $author_info->ID, 150) ?></a>
+						</div>
+						<div class="col-md-9 col-sm-9">
+							<p><a href="<?php echo get_author_posts_url( $author_info->ID); ?>"><?php echo $author_info->display_name; ?></a></p>
+							<p><?php echo $author_info->description; ?></p>
+						</div>
+					</div>
+						<div class="clear"></div>
+					<?php 					
+				}
+				
+				?>
+				
+				<?php
 				$authors_info = get_users( array('role' => 'author') );
 				//echo '<pre>';print_r($authors_info);die;
 				foreach ($authors_info as $author_info)
 				{
 					?>
-					<div style="margin-bottom: 10px;">
-						<div style="float:left;">
-							<?php echo get_avatar( $author_info->ID) ?>
+					<div class="author-box col-md-12 col-sm-12">
+						<div class="col-md-3 col-sm-3">
+						<a href="<?php echo get_author_posts_url( $author_info->ID); ?>"><?php echo get_avatar( $author_info->ID, 150) ?></a>
 						</div>
-						<div style="float:left;padding:10px;">
-							<p><?php echo $author_info->display_name; ?></p>
-							<p><?php echo $author_info->description; ?></p>
+						<div class="col-md-9 col-sm-9">
+							<p><a href="<?php echo get_author_posts_url( $author_info->ID); ?>"><?php echo $author_info->display_name; ?></a></p>
+							<p><?php echo (strlen($author_info->description) > 200) ? substr($author_info->description, 0, 200).'...' : $author_info->description; ?></p>
 						</div>
-						<div class="clear"></div>
 					</div>
+						<div class="clear"></div>
 					<?php 					
 				}
 				
